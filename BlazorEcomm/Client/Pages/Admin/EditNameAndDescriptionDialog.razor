@@ -1,0 +1,89 @@
+﻿@inject IProductService productService
+@if (ShowDialog)
+{
+    @if (dbProduct == null)
+    {
+        <span>Loading...</span>
+    }
+    else
+    {
+        <div class="modal fade show d-block" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Modal title</h5>
+                        <button type="button" @onclick="@Hide" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <EditForm Model="@dbProduct" OnValidSubmit="HandleValidSubmit">
+
+                            <div class="mb-0">
+                                <label for="title">Title</label>
+                                <InputText id="title" @bind-Value="dbProduct.Title" class="form-control"></InputText>
+                            </div>
+
+                            <div class="mb-0">
+                                <label for="description">Description</label>
+                                <InputTextArea id="description" @bind-Value="dbProduct.Description" class="form-control"></InputTextArea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+
+                        </EditForm>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    }
+}
+
+@code {
+
+
+    [Parameter]
+    public int ProductId { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> CloseEventCallback { get; set; }
+
+
+    Product dbProduct = new Product();
+    public bool ShowDialog = false;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+
+    }
+    protected override async Task OnParametersSetAsync()
+    {
+        dbProduct = (await productService.GetProduct(ProductId)).Data;
+    }
+    public void Show()
+    {
+        ShowDialog = true;
+        StateHasChanged();
+    }
+
+
+    public void Hide()
+    {
+        ShowDialog = false;
+        StateHasChanged();
+    }
+
+    public async Task HandleValidSubmit()
+    {
+        Console.WriteLine("NEW NEW");
+        var product = await productService.UpdateProduct(dbProduct);
+        await CloseEventCallback.InvokeAsync(true);
+        Hide();
+        StateHasChanged();
+
+    }
+}
