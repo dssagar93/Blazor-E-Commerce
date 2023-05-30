@@ -1,0 +1,18 @@
+﻿<h3>---From Child Component</h3>
+
+@Name
+@Id
+@Role
+
+<Grandchild></Grandchild>
+@code {
+
+    [CascadingParameter(Name = "Name")]
+    public string Name { get; set; }
+
+    [CascadingParameter] 
+    public int Id { get;set; }
+
+    [CascadingParameter(Name = "Role")]
+    public string Role { get; set; }
+}

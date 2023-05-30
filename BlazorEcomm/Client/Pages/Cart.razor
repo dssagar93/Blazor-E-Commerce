@@ -53,7 +53,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        isAuthenticated = await _authService.IsUserAuthenticated();
+        //isAuthenticated = await _authService.IsUserAuthenticated();
         await LoadCart();
     }
 

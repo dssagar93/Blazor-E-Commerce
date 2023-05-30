@@ -3,7 +3,7 @@
 @inject IAuthService authService
 @inject ILocalStorageService localStorageService
 @inject NavigationManager navigationManager
-@inject AuthenticationStateProvider authenticationStateProvider
+@*@inject AuthenticationStateProvider authenticationStateProvider*@
 <PageTitle>Login</PageTitle>
 
 <EditForm Model="user" OnValidSubmit="HandleLogin">
@@ -46,7 +46,7 @@
         {
             errorMessage = string.Empty;
             await localStorageService.SetItemAsync("authToken", result.Data);
-            await authenticationStateProvider.GetAuthenticationStateAsync();
+            //await authenticationStateProvider.GetAuthenticationStateAsync();
             navigationManager.NavigateTo(returnUrl);
         }
         else

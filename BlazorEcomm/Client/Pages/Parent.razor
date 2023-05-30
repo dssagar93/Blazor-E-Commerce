@@ -1,0 +1,20 @@
+﻿@page "/parent"
+
+<CascadingValue Value="@Id">
+    <CascadingValue Value="@Name" Name="Name">
+        <CascadingValue Value="@Role" Name="Role">
+        <Child></Child>
+        </CascadingValue>
+    </CascadingValue>
+</CascadingValue>
+
+
+@code {
+    [Parameter]
+    public int Id { get; set; } = 1;
+    public string Name { get; set; } = "Sagar";
+    public string Role { get; set; } = "Employee";
+
+
+
+}

@@ -3,12 +3,12 @@
     public class AuthService : IAuthService
     {
         private readonly HttpClient _httpClient;
-        private readonly AuthenticationStateProvider _authStateProvider;
+        //private readonly AuthenticationStateProvider _authStateProvider;
 
-        public AuthService(HttpClient httpClient, AuthenticationStateProvider authStateProvider)
+        public AuthService(HttpClient httpClient )
         {
             _httpClient = httpClient;
-            _authStateProvider = authStateProvider;
+            //_authStateProvider = authStateProvider;
 
         }
 
@@ -32,9 +32,9 @@
         }
 
 
-        public async Task<bool> IsUserAuthenticated()
-        {
-            return (await _authStateProvider.GetAuthenticationStateAsync()).User.Identity.IsAuthenticated;
-        }
+        //public async Task<bool> IsUserAuthenticated()
+        //{
+        //    return (await _authStateProvider.GetAuthenticationStateAsync()).User.Identity.IsAuthenticated;
+        //}
     }
 }
